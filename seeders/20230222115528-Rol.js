@@ -7,7 +7,7 @@ module.exports = {
      * Add seed commands here.
      *
      * Example:*/
-      await queryInterface.bulkInsert('rols', [
+      await queryInterface.bulkInsert('Rols', [
         {id: 1,privilege: "admin"},
         {id: 2,privilege: "user"}
     ], {});
