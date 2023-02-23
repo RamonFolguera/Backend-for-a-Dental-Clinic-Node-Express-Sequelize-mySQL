@@ -12,24 +12,26 @@ const PORT = 3000;
 app.use(express.json());
 app.use(router);
 
-let drop= false;
-let popullate= false;
-
 const dropFunc= async()=> {
     let salida = await exec("npx sequelize db:drop");
-    console.log('stdout:', salida.stdout);
+    console.log(salida.stdout);
     salida = await exec("npx sequelize db:create");
-    console.log('stdout:', salida.stdout);
-    salida= await exec("npx sequelize db:migrate");
-    console.log('stdout:', salida.stdout);
+    console.log(salida.stdout);
+    //let server= app.listen(PORT,()=>{
+    await sequelize.sync({force: true});
+    //});
+
+    // salida= await exec("npx sequelize db:migrate");
+    // console.log(salida.stdout);
 };
 const popullateFunc= async()=> {
-    let salida = await exec("npx sequelize db:seed:all");
-    console.log('stdout:', salida.stdout);
+    let salida =await exec("npx sequelize db:seed:all");
+    console.log(salida.stdout);
 };
-
-inquirer
-.prompt([
+const pedirDrop= async()=>{
+    let drop;
+    await inquirer
+    .prompt([
     {
         type: 'checkbox',
         message: '¿Quieres dropear la base de datos antigua?',
@@ -51,11 +53,25 @@ inquirer
                 return 'Tienes que elegir una opcion';
             }
             return true;
-        },
-    },
+        }
+    }])
+    .then((answers) => {
+        drop= JSON.stringify(answers.drop);
+    })
+    .catch((error) => {
+        drop= ("Error: "+JSON.stringify(error));
+    });
+    return new Promise ((resolve, reject)=>{
+        resolve(drop);
+    });
+};
+const pedirPopullate = async ()=>{
+    let popullate;
+    await inquirer
+    .prompt([
     {
         type: 'checkbox',
-        message: '¿Quieres poblar la nueva base de datos?',
+        message: '¿Quieres poblar la base de datos?',
         name: 'popullate',
         choices: [
             new inquirer.Separator(' = Select = '),
@@ -74,23 +90,29 @@ inquirer
                 return 'Tienes que elegir una opcion';
             }
             return true;
-        },
-    },])
-.then((answers) => {
-    drop= JSON.stringify(answers.drop);
-    popullate= JSON.stringify(answers.popullate);
+        }
+    }])
+    .then((answers) => {
+        popullate= JSON.stringify(answers.popullate);
+    })
+    .catch((error) => {
+        popullate= ("Error: "+JSON.stringify(error));
+    });
+    return new Promise ((resolve, reject)=>{
+        resolve(popullate);
+    });
+};
+const todo=async()=>{
+    let drop= await pedirDrop();
     if(drop=='["Si"]'){
         console.log("dropping");
-        dropFunc()
-        .then(()=>{
-            
-            if(popullate=='["Si"]'){
-                console.log("popullating");
-                popullateFunc();
-            }
-        });
+        await dropFunc();
+        let popullate = await pedirPopullate();
+        if(popullate=='["Si"]'){
+            console.log("popullating");
+            await popullateFunc();
+        }
     }
-})
-.catch((error) => {
-    console.log("Error: "+JSON.stringify(error));
-});
+};
+
+todo();
