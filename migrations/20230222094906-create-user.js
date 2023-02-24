@@ -12,7 +12,7 @@ module.exports = {
       RolId: {
         allowNull: false,
         references: {
-          model: "Users",
+          model: "Rols",
           key: "id"
         } ,
         type: Sequelize.INTEGER
