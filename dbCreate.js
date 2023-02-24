@@ -106,11 +106,12 @@ const pedirPopullate = async ()=>{
 };
 const todo=async()=>{
     let drop= await pedirDrop();
-    if(drop=='["Si"]'){
+    console.log(drop);
+    if(drop=='"Si"'){
         console.log("dropping");
         await dropFunc();
         let popullate = await pedirPopullate();
-        if(popullate=='["Si"]'){
+        if(popullate=='"Si"'){
             console.log("popullating");
             await popullateFunc();
         }
