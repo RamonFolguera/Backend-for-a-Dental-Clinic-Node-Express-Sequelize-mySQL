@@ -35,7 +35,7 @@ const pedirDrop= async()=>{
     await inquirer
     .prompt([
     {
-        type: 'checkbox',
+        type: 'list',
         message: '¿Quieres dropear la base de datos antigua?',
         name: 'drop',
         choices: [
@@ -72,7 +72,7 @@ const pedirPopullate = async ()=>{
     await inquirer
     .prompt([
     {
-        type: 'checkbox',
+        type: 'list',
         message: '¿Quieres poblar la base de datos?',
         name: 'popullate',
         choices: [
