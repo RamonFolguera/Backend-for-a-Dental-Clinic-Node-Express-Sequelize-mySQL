@@ -7,4 +7,4 @@ const PORT = 3000;
 app.use(express.json());
 app.use(router);
 
-sequelize.sync({force: true});
+// sequelize.sync({force: true});
