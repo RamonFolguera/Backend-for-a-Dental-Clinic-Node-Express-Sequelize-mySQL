@@ -41,3 +41,23 @@ const router = require('./router');
 app.use(router);
 ```
 
+Step 13 - Refactor to route. 
+```
+const router = require('express').Router();
+
+router.use('/services', servicesRouter);
+router.use('/users', usersRouter)
+
+module.exports = router;
+```
+Step 14 - Refactor users and services to controllers.
+```
+const serviceController = {};
+
+serviceController.getServices = (req, res) => {return res.send('Get Services')}
+serviceController.createServices = (req, res) => {return res.send('Create Services')}
+
+module.exports = serviceController;
+```
+
+
