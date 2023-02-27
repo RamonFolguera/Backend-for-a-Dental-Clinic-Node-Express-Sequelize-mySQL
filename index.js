@@ -13,4 +13,4 @@ const PORT = 3000;
     //Starting server
     app.listen(PORT, () => console.log("Server on port " + PORT));
 })
-    .catch((err) => console.log(err.message));   
+    .catch((err) => console.log(err.message));  
