@@ -2,9 +2,8 @@
 //Importo método router() de la clase express
 const router = require('express').Router();
 
-const UsersRouter = require('./views/UsersRouter');
-
-router.use("/users", UsersRouter);
+router.use('/services', servicesRouter);
+router.use('/users', usersRouter)
 
 
 //Exporto router

@@ -25,3 +25,19 @@ references: {
           key:"id"
         }
 ```
+
+Step 10 - Created controllers and view folder.
+In view folder created UsersRouter, servicesRouter
+
+Step 11 - Created router.js file in main root:
+```
+const router = require('express').Router();
+module.exports = router;
+```
+
+Step 12 - Route.js Connected to main index 
+```
+const router = require('./router'); 
+app.use(router);
+```
+

@@ -1,12 +1,17 @@
 const express = require('express');
-const { User } = require('./models/index')
+
 const db = require('./db/db.js');
 require('dotenv').config()
 
 const app = express();
 
+const router = require('./router'); 
+
 app.use(express.json());
-app.use(usersRoutes);
+
+app.use(router);
+
+
 const PORT = 3000;
 
 

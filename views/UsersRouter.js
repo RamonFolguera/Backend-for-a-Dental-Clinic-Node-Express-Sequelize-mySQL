@@ -1,18 +1,13 @@
 
-//Importo la clase express y la guardo en la variable express (siempre igual)
-const express = require('express');
-//ejecuto el método Router() de express (siempre igual)
-const router = express.Router();
+//execute Router() method from express
 
-const UsersController = require('../controllers/UsersController');
+const router = require('express').Router();
+
 
 //Endpoints CRUD
 
 router.get("/", UsersController.getAllUsers);
 router.post("/", UsersController.newUser);
 
-
-
-
-//Exporto router para que pueda ser importado desde otros ficheros una vez ha ejecutado la lógica de éste(siempre igual)
+//export router so it can be imported from other files once it is executed 
 module.exports = router;
