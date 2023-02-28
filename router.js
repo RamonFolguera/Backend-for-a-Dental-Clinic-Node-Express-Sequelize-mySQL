@@ -1,13 +1,15 @@
 
 //Importo método router() de la clase express
 const router = require('express').Router();
-const usersRoutes = require ('./views/usersRoutes');
-const servicesRoutes = require ('./views/servicesRoutes');
-const appointmentsRoutes = require ('./views/appointmentsRoutes');
+const userRoutes = require ('./views/userRoutes');
+const serviceRoutes = require ('./views/serviceRoutes');
+const appointmentRoutes = require ('./views/appointmentRoutes');
+const roleRoutes = require ('./views/roleRoutes');
 
-router.use('/services', servicesRoutes);
-router.use('/users', usersRoutes);
-router.use('/appointments', appointmentsRoutes);
+router.use('/services', serviceRoutes);
+router.use('/users', userRoutes);
+router.use('/appointments', appointmentRoutes);
+router.use('/roles', roleRoutes);
 
 
 //Exporto router
