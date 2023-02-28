@@ -13,7 +13,6 @@ module.exports = (sequelize, DataTypes) => {
       User.belongsTo(
         models.Role,
         {
-        foreignKey: 'role_id'
       }),
       User.belongsToMany(
         models.Service,
