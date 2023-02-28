@@ -12,6 +12,13 @@ module.exports = {
       collegiate_num: {
         type: Sequelize.STRING
       },
+      user_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Users",
+          key:"id"
+        }
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
