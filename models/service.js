@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       Service.belongsToMany(
         models.User,
         {
-          through: 'Appointments',
+          through: 'Appointment',
           foreignKey: 'service_id'
       })
     }
@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     medication: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'Services',
+    modelName: 'Service',
   });
-  return Services;
+  return Service;
 };

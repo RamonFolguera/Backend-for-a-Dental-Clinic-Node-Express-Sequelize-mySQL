@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-     
+        
     }
   }
   Appointment.init({
@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     comments: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'Appointments',
+    modelName: 'Appointment',
   });
-  return Appointments;
+  return Appointment;
 };
