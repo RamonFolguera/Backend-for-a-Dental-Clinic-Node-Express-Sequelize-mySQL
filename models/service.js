@@ -13,7 +13,13 @@ module.exports = (sequelize, DataTypes) => {
       Service.belongsToMany(
         models.User,
         {
-          through: 'Appointment',
+          through: 'Appointments',
+          foreignKey: 'service_id'
+      }),
+      Service.belongsToMany(
+        models.Doctor,
+        {
+          through: 'Appointments',
           foreignKey: 'service_id'
       })
     }
