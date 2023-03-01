@@ -3,16 +3,12 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    /**
-     * Add seed commands here.
-     *
-    */
-    // await queryInterface.bulkInsert('Users', [
-    //   {id: 1,name: "Alyna", first_surname:"asdf", second_surname:"qwer",phone:"666555444",emai:"alyna@alyna.com",address:"su casa", createdAt: "2023-02-22 00:00:00", updatedAt: "2023-02-22 00:00:00"},
-    //   {id: 2,name: "Ignacio", email: "ignacio@gmail.com", password: "333222111", RolId: 1, createdAt: "2023-02-22 00:00:00", updatedAt: "2023-02-22 00:00:00"},
-    //   {id: 3,name: "Marcos", email: "marcos@gmail.com", password: "888777555", RolId: 1, createdAt: "2023-02-22 00:00:00", updatedAt: "2023-02-22 00:00:00"},
-    //   {id: 4,name: "Eduardo", email: "eduardo@gmail.com", password: "54325435243", RolId: 2, createdAt: "2023-02-22 00:00:00", updatedAt: "2023-02-22 00:00:00"},
-    // ],{});
+
+    await queryInterface.bulkInsert('Users', [
+      {id: 1,name: "Ramón", first_surname:"Folguera", second_surname:"Carbonell",phone:"666555444",email:"ramon@ramon.com",address:"Calle sin nombre, 17",role_id:"1", createdAt: "2023-03-01 00:00:00", updatedAt: "2023-03-01 00:00:00"},
+      {id: 2,name: "Jose Andrés", first_surname:"Oliver", second_surname:"Abel",phone:"665544332",email:"jose@jose.com",address:"Calle sin número, 18",role_id:"1", createdAt: "2023-03-01 00:00:00", updatedAt: "2023-03-01 00:00:00"},
+      {id: 3,name: "Amparo", first_surname:"Martínez", second_surname:"López",phone:"654654654",email:"amparo@amparo.com",address:"Calle sin calle, 15",role_id:"1", createdAt: "2023-03-01 00:00:00", updatedAt: "2023-03-01 00:00:00"},
+    ],{});
     
   },
 
