@@ -10,7 +10,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        required: true
       },
       first_surname: {
         type: Sequelize.STRING
@@ -21,12 +22,19 @@ module.exports = {
       phone: {
         type: Sequelize.STRING
       },
-      email: {
-        type: Sequelize.STRING
-      },
       address: {
         type: Sequelize.STRING
       },
+      email: {
+        type: Sequelize.STRING,
+        unique: true,
+        required: true
+      },
+      password: {
+        type: Sequelize.STRING,
+        required: true,
+        min: 6
+      },      
       role_id: {
         type: Sequelize.INTEGER,
         references: {

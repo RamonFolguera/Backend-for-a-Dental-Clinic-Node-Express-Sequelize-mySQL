@@ -5,9 +5,11 @@ module.exports = {
   async up (queryInterface, Sequelize) {
 
     await queryInterface.bulkInsert('Users', [
-      {id: 1,name: "Ramón", first_surname:"Folguera", second_surname:"Carbonell",phone:"666555444",email:"ramon@ramon.com",address:"Calle sin nombre, 17",role_id:1, createdAt: "2023-03-01 00:00:00", updatedAt: "2023-03-01 00:00:00"},
-      {id: 2,name: "Jose Andrés", first_surname:"Oliver", second_surname:"Abel",phone:"665544332",email:"jose@jose.com",address:"Calle sin número, 18",role_id:1, createdAt: "2023-03-01 00:00:00", updatedAt: "2023-03-01 00:00:00"},
-      {id: 3,name: "Amparo", first_surname:"Martínez", second_surname:"López",phone:"654654654",email:"amparo@amparo.com",address:"Calle sin calle, 15",role_id:1, createdAt: "2023-03-01 00:00:00", updatedAt: "2023-03-01 00:00:00"},
+      {id: 1,name: "Ramón", first_surname:"Folguera", second_surname:"Carbonell",phone:"666555444",address:"44 Palmers Road",email:"ramon@ramon.com",password:"123456",role_id:1, createdAt: "2023-03-01 00:00:00", updatedAt: "2023-03-01 00:00:00"},
+      {id: 2,name: "Jose Andrés", first_surname:"Oliver", second_surname:"Abel",phone:"665544332",address:"10 Whiston Road",email:"jose@jose.com",password:"789123",role_id:1, createdAt: "2023-03-01 00:00:00", updatedAt: "2023-03-01 00:00:00"},
+      {id: 3,name: "Amparo", first_surname:"Martínez", second_surname:"López",phone:"654654654",address:"11 St Peters Way",email:"amparo@amparo.com",password:"456789",role_id:1, createdAt: "2023-03-01 00:00:00", updatedAt: "2023-03-01 00:00:00"},
+      {id: 3,name: "Paula", first_surname:"Ribelles", second_surname:"Camacho",phone:"654987321",address:"13 Broadway Market",email:"amparo@amparo.com",password:"456789",role_id:1, createdAt: "2023-03-01 00:00:00", updatedAt: "2023-03-01 00:00:00"},
+      {id: 3,name: "Amparo", first_surname:"Martínez", second_surname:"López",phone:"654654654",address:"5 Abbey Road",email:"amparo@amparo.com",password:"456789",role_id:1, createdAt: "2023-03-01 00:00:00", updatedAt: "2023-03-01 00:00:00"},
     ],{});
   },
 
