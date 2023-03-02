@@ -59,5 +59,11 @@ serviceController.createServices = (req, res) => {return res.send('Create Servic
 
 module.exports = serviceController;
 ```
+Step 15 - Created seeders for Role, User, Doctor, Service, Appointment and committed to the database
+
+npx sequelize-cli seed:generate --name demo-user
+npx sequelize-cli db:seed:all
+
+
 
 
