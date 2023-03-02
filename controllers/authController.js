@@ -43,7 +43,6 @@ authController.login = async (req, res) => {
         const {email, password} = req.body;
 
         //la tabla user tiene el hash encrypted. el usuario se registra con el email
-        console.log(req.body);
         //busco el usuario
         const user = await User.findOne(
             {
@@ -66,15 +65,19 @@ authController.login = async (req, res) => {
             { //aqui podemos meter lo que queramos
                 userId: user.id,
                 email: user.email,
+                roleId: user.role_id
             }, 
             'secreto', //para verificar q ese token para mi aplicacion es valido, cuanto mas largo mejor
             { expiresIn: '2h' }  //en 2h expire y no valga
         );
 
-            console.log(token);
         return res.json(token)
     } catch (error) {
-        return res.status(500).send(error.message);
+        return res.status(500).json({
+                            success: false,
+                            message: "Somenthing went wrong",
+                            error: error.message
+                        })
     }
 }
 
