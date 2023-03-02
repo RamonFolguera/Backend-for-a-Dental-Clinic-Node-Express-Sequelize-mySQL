@@ -1,7 +1,7 @@
 #Project 4 - Backend for a dental clinic
 
 Step 1 - Creation of package.json with npm init -y.
-Step 2 - Creation of index.js on the main root. Creation of .gitignore with /node_modules in it.
+Step 2 - Creation of index.js on the main root. Creation of .gitignore with /node_modules in it. git init.
 Step 3 - Installed express, nodemon, sequelize, sequelize-cli, mysql2
 Step 4 - Sequelize init. We start sequelize.
 Step 5 - Creation of script "dev": "nodemon index.js", to keep our server running.
