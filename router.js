@@ -13,7 +13,8 @@ router.use('/users', userRoutes);
 router.use('/appointments', appointmentRoutes);
 router.use('/roles', roleRoutes);
 router.use('/doctors', doctorRoutes);
-router.use('/register', authRoutes);
+// router.use('/register', authRoutes);
+router.use('/login', authRoutes);
 
 
 //Exporto router
