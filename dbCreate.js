@@ -61,7 +61,7 @@ const pedirDrop= async()=>{
         drop= JSON.stringify(answers.drop);
     })
     .catch((error) => {
-        drop= ("Error: "+JSON.stringify(error));
+        drop= ("Error: "+error);
     });
     return new Promise ((resolve, reject)=>{
         resolve(drop);
@@ -98,24 +98,28 @@ const pedirPopullate = async ()=>{
         popullate= JSON.stringify(answers.popullate);
     })
     .catch((error) => {
-        popullate= ("Error: "+JSON.stringify(error));
+        popullate= ("Error: "+error);
     });
     return new Promise ((resolve, reject)=>{
         resolve(popullate);
     });
 };
 const todo=async()=>{
-    let drop= await pedirDrop();
-    console.log(drop);
-    if(drop=='"Si"'){
-        console.log("dropping");
-        await dropFunc();
-        let popullate = await pedirPopullate();
-        if(popullate=='"Si"'){
-            console.log("popullating");
-            await popullateFunc();
+    try{
+        let drop= await pedirDrop();
+        if(drop=='"Si"'){
+            console.log("dropping");
+            await dropFunc();
+            let popullate = await pedirPopullate();
+            if(popullate=='"Si"'){
+                console.log("popullating");
+                await popullateFunc();
+            }
         }
+    }catch(error){
+        console.log("Error: "+error);
     }
+    
 };
 
 todo();
