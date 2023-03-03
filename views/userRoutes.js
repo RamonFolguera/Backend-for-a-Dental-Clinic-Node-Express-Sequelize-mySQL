@@ -1,11 +1,12 @@
 
 const userController = require ('../controllers/userController');
 const router = require('express').Router();
+const verifyToken = require('../middleware/verifyToken');
 
 
 //Endpoints CRUD
 
-router.get("/", userController.getAllUsers);
+router.get("/", verifyToken, userController.getAllUsers);
 router.post("/", userController.createUsers);
 
 //export router so it can be imported from other files once it is executed 

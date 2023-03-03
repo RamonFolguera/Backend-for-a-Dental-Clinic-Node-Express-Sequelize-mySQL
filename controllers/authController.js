@@ -4,35 +4,40 @@ const jwt = require('jsonwebtoken');
 
 const authController = {};
 
-// authController.register = async (req, res) => {
-//     try {
-//         const {name, first_surname, second_surname, phone, address, email, password} = req.body;
-//         const encryptedPassword = bcrypt.hashSync(password, 10);
+authController.register = async (req, res) => {
+    try {
+        const {name, first_surname, second_surname, phone, address, email, password} = req.body;
+        const encryptedPassword = bcrypt.hashSync(password, 10);
 
-//         console.log(encryptedPassword)
+        console.log(encryptedPassword)
 
-//         const newUser = await User.create(
-//             {
-//                 name: name,
-//                 first_surname:first_surname,
-//                 second_surname:second_surname,
-//                 phone: phone,
-//                 address:address,
-//                 email: email,
-//                 password: encryptedPassword,
-//                 role_id: 1
-//             }
-//         )
-//         return res.json(newUser);
+        const newUser = await User.create(
+            {
+                name: name,
+                first_surname:first_surname,
+                second_surname:second_surname,
+                phone: phone,
+                address:address,
+                email: email,
+                password: encryptedPassword,
+                role_id: 1
+            }
+        )
+        return res.json(
+            {
+            success: true,
+            message: "Register was succesful",
+            data: newUser
+            });
 
-//     } catch (error) {
-//             return res.status(500).json({
-//                 success: false,
-//                 message: "Somenthing went wrong",
-//                 error: error.message
-//             })
-//     }
-// }
+    } catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: "Somenthing went wrong with Register",
+                error: error.message
+            })
+    }
+}
 
 
 
@@ -68,6 +73,7 @@ authController.login = async (req, res) => {
                 roleId: user.role_id
             }, 
             'secreto', //para verificar q ese token para mi aplicacion es valido, cuanto mas largo mejor
+            //PARA HACER UN JWT_SECRET y guardarlo en env
             { expiresIn: '2h' }  //en 2h expire y no valga
         );
 
@@ -75,7 +81,7 @@ authController.login = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
                             success: false,
-                            message: "Somenthing went wrong",
+                            message: "Somenthing went wrong with Login",
                             error: error.message
                         })
     }

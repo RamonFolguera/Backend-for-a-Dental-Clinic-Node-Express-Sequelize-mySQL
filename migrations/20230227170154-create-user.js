@@ -33,7 +33,7 @@ module.exports = {
       password: {
         type: Sequelize.STRING,
         required: true,
-        min: 6
+        // min: 6 minlenght?
       },      
       role_id: {
         type: Sequelize.INTEGER,

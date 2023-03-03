@@ -7,14 +7,15 @@ const appointmentRoutes = require ('./views/appointmentRoutes');
 const roleRoutes = require ('./views/roleRoutes');
 const doctorRoutes = require ('./views/doctorRoutes');
 const authRoutes = require ('./views/authRoutes');
+const verifyToken = require('./middleware/verifyToken')
+
 
 router.use('/services', serviceRoutes);
 router.use('/users', userRoutes);
 router.use('/appointments', appointmentRoutes);
 router.use('/roles', roleRoutes);
 router.use('/doctors', doctorRoutes);
-// router.use('/register', authRoutes);
-router.use('/login', authRoutes);
+router.use('/auth', authRoutes);
 
 
 //Exporto router
