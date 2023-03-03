@@ -72,7 +72,7 @@ authController.login = async (req, res) => {
                 email: user.email,
                 roleId: user.role_id
             }, 
-            'secreto', //para verificar q ese token para mi aplicacion es valido, cuanto mas largo mejor
+            process.env.JWT_SECRET, //para verificar q ese token para mi aplicacion es valido, cuanto mas largo mejor
             //PARA HACER UN JWT_SECRET y guardarlo en env
             { expiresIn: '2h' }  //en 2h expire y no valga
         );
