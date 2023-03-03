@@ -11,7 +11,7 @@ const verifyToken = (req, res, next) => {
     }
     //bearer ira a strategy, token a jwt
     const [ strategy, token ]  = authorization.split(" ");
-    const decoded = jwt.verify(token, 'secreto');
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     
     //al objeto request le digo q usuario eres y q rol eres
     req.userId = decoded.userId;

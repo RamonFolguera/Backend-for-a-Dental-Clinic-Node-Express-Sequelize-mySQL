@@ -11,7 +11,7 @@ app.use(express.json());
 
 app.use(router);
 
-const PORT = 3000;
+const PORT = process.env.PORT || 4000;
 
   db.then(() => {
     //Starting server
