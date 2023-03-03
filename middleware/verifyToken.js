@@ -7,7 +7,7 @@ const verifyToken = (req, res, next) => {
     const authorization = req.headers.authorization;
 
     if(!authorization) {
-        return res.send('I am sorry. You have registered an invalid token. Please, try again.')
+        return res.send('You are not logged in. Please, log in and try again.')
     }
     //bearer ira a strategy, token a jwt
     const [ strategy, token ]  = authorization.split(" ");

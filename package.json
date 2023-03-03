@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "nodemon index.js",
     "create": "node dbCreate.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "test-models": "node test_models.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
