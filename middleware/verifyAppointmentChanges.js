@@ -4,7 +4,8 @@ const { Appointment } = require("../models");
 const verifyAppointmentChanges = async(req, res, next) => {
 
     try {
-        const appointment = await Appointment.findByPk(req.body.appointmentId);
+        const appointmentId= req.body.id;
+        const appointment = await Appointment.findByPk(appointmentId);
         const changes= req.body.changes;
         if(appointment && changes){
             let changesExists = true;
@@ -23,7 +24,7 @@ const verifyAppointmentChanges = async(req, res, next) => {
                 return res.status(500).send("wrong attribute sent "+ wrongAttribute+ ", must be replaced by correct attribute");
             }
         }else{
-            return res.status(500).send("You must send any changes to update appointment");
+            return res.status(500).send("You must send any correct changes to update appointment");
         }
     }catch(error){
         return res.status(500).send(error.message);
