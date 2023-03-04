@@ -8,9 +8,10 @@ const appointmentController = {};
 appointmentController.createAppointments = async (req, res) => {
     
     try {
-        const { doctor_id, service_id } = req.body;
+        const { date, doctor_id, service_id } = req.body;
         const user_id = req.userId
         const newAppointment = {
+            date: date,
             service_id: service_id,
             user_id: user_id,
             doctor_id: doctor_id,
