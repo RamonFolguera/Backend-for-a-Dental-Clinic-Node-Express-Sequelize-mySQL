@@ -330,4 +330,44 @@ appointmentController.getMyPendingAppointmentsAsDoctor = async (req, res) => {
 
 
 
+appointmentController.verify = async (req, res) => {
+    
+    try {
+        const appointmentId = req.body.id;
+        const doctorId= req.doctorId;
+        const changes = {};
+        changes.confirmed=true;
+        changes.comments= req.body.comments;
+        const appointment=await Appointment.findByPk(appointmentId);
+        if(appointment.doctor_id===doctorId){   
+            if(appointment.verified===true){
+                appointment.update(changes);
+                appointment.save();
+                return res.json(
+                    {
+                        success: true,
+                        message: "appointment verified",
+                        data: appointment
+                    }
+                );
+            }else{
+                return res.status(500).json({
+                    success: false,
+                    message: "this appointments is already verified"
+                })
+            }
+        }else{
+            return res.status(500).json({
+                success: false,
+                message: "You are not allowed to change this appointment"
+            })
+        }
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Somenthing went wrong with your appointment",
+            error: error.message
+        })
+    }
+}
 module.exports = appointmentController;
