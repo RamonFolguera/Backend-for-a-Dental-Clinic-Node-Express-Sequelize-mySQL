@@ -11,6 +11,11 @@ module.exports = (sequelize, DataTypes) => {
         Doctor.belongsTo(models.User, {
         foreignKey: "user_id",
         }),
+
+        // Doctor.hasMany(models.Appointment, {
+        //     foreignKey: 'doctor_id'
+        //   }),
+
         Doctor.belongsToMany(models.Service, {
             through: "Appointments",
             foreignKey: "doctor_id",
@@ -19,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
 }
 Doctor.init(
     {
+        user_id: DataTypes.INTEGER,
         collegiate_num: DataTypes.STRING,
     },
     {
