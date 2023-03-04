@@ -9,6 +9,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      date: {
+        type: Sequelize.DATE,
+        },
       service_id: {
         type: Sequelize.INTEGER,
         references: {
