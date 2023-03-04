@@ -97,10 +97,6 @@ appointmentController.getAllAppointmentsAsDoctor = async (req, res) => {
         const getAllAppointmentsAsDoctor = await Appointment.findAll(
 
             {
-            //     where:{
-            //     user_id : req.userId,
-                
-            // },
                 include: [
                     {
                         model: Service,
