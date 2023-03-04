@@ -23,7 +23,7 @@ module.exports = {
       {id: 2,name: "Jose Andrés", first_surname:"Oliver", second_surname:"Abel",phone:"665544332",address:"10 Whiston Road",email:"jose@jose.com",password: encryptedPassword2,role_id:1, createdAt: "2023-03-01 00:00:00", updatedAt: "2023-03-01 00:00:00"},
       {id: 3,name: "Amparo", first_surname:"Martínez", second_surname:"López",phone:"654654654",address:"11 St Peters Way",email:"amparo@amparo.com",password: encryptedPassword3,role_id:3, createdAt: "2023-03-01 00:00:00", updatedAt: "2023-03-01 00:00:00"},
       {id: 4,name: "Paula", first_surname:"Ribelles", second_surname:"Camacho",phone:"654987321",address:"13 Broadway Market",email:"paula@paula.com",password: encryptedPassword4,role_id:2, createdAt: "2023-03-01 00:00:00", updatedAt: "2023-03-01 00:00:00"},
-      {id: 4,name: "Álvaro", first_surname:"Bernabé", second_surname:"Alonso",phone:"656565656",address:"5 Abbey Road",email:"alvaro@alvaro.com",password: encryptedPassword5,role_id:1, createdAt: "2023-03-01 00:00:00", updatedAt: "2023-03-01 00:00:00"}
+      {id: 5,name: "Álvaro", first_surname:"Bernabé", second_surname:"Alonso",phone:"656565656",address:"5 Abbey Road",email:"alvaro@alvaro.com",password: encryptedPassword5,role_id:1, createdAt: "2023-03-01 00:00:00", updatedAt: "2023-03-01 00:00:00"}
     ],{});
   },
 

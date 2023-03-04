@@ -6,7 +6,8 @@ module.exports = {
     
     await queryInterface.bulkInsert('Appointments', [
       {id: 1,service_id: 1,user_id: 2, doctor_id: 1,comments: "First session",createdAt: "2023-03-01 00:00:00", updatedAt: "2023-03-01 00:00:00"},
-      {id: 2,service_id: 2,user_id: 2,doctor_id: 2,comments: "Second session",createdAt: "2023-03-01 00:00:00", updatedAt: "2023-03-01 00:00:00"},
+      {id: 2,service_id: 3,user_id: 2,doctor_id: 2,comments: "Second session",createdAt: "2023-03-01 00:00:00", updatedAt: "2023-03-01 00:00:00"},
+      {id: 3,service_id: 2,user_id: 5,doctor_id: 1,comments: "Ask for new appointment after the treatment",createdAt: "2023-03-01 00:00:00", updatedAt: "2023-03-01 00:00:00"}
     ],{});
   
   },
