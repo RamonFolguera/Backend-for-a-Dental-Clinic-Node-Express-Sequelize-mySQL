@@ -34,7 +34,8 @@ module.exports = (sequelize, DataTypes) => {
     service_id: DataTypes.INTEGER,
     user_id: DataTypes.INTEGER,
     doctor_id: DataTypes.INTEGER,
-    comments: DataTypes.STRING
+    comments: DataTypes.STRING,
+    confirmed: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'Appointment',

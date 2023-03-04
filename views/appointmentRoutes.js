@@ -13,5 +13,6 @@ router.delete('/',verifyToken, appointmentController.deleteMyAppointment);
 
 //extra
 router.get('/doctor/my', verifyToken,isDoctor, appointmentController.getMyAppointmentsAsDoctor);
+router.get('/doctor/my-verified', verifyToken, isDoctor, appointmentController.getMyPendingAppointmentsAsDoctor);
 
 module.exports = router;
