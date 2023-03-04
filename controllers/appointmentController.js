@@ -8,13 +8,14 @@ const appointmentController = {};
 appointmentController.createAppointments = async (req, res) => {
     
     try {
-        const { doctor_id, service_id, comments } = req.body;
+        const { doctor_id, service_id } = req.body;
         const user_id = req.userId
         const newAppointment = {
             service_id: service_id,
             user_id: user_id,
             doctor_id: doctor_id,
-            comments: comments
+            comments: "comments pending",
+            confirmed: false
         }
     
         // Guardar la informacion
@@ -152,5 +153,35 @@ appointmentController.getAllAppointmentsAsDoctor = async (req, res) => {
     }
 }
 
-
+appointmentController.updateMyAppointment = async (req, res) => {
+    
+    try {
+        const appointment = req.Appointment;
+        const userId= req.userId;
+        const changes = req.body.changes;
+        changes.confirmed=false;
+        if(appointment.user_id===userId){   // si la cita es tuya podras modificarla
+            appointment.update(changes);
+            appointment.save();
+            return res.json(
+                {
+                    success: true,
+                    message: "appointment updated",
+                    data: appointment
+                }
+            );
+        }else{
+            return res.status(500).json({
+                success: false,
+                message: "You are not allowed to change this appointment"
+            })
+        }
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Somenthing went wrong with your appointment",
+            error: error.message
+        })
+    }
+}
 module.exports = appointmentController;

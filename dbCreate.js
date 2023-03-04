@@ -19,12 +19,6 @@ const dropFunc= async()=> {
     console.log(salida.stdout);
     salida = await exec("npx sequelize db:migrate");
     console.log(salida.stdout);
-    //let server= app.listen(PORT,()=>{
-    //await sequelize.sync({force: true});
-    //});
-
-    // salida= await exec("npx sequelize db:migrate");
-    // console.log(salida.stdout);
 };
 const popullateFunc= async()=> {
     let salida =await exec("npx sequelize db:seed:all");
