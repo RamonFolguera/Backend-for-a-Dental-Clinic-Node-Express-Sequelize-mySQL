@@ -9,5 +9,6 @@ router.get('/user', verifyToken, appointmentController.getAppointmentsByuserId);
 router.get('/', verifyToken, isDoctor, appointmentController.getAllAppointmentsAsDoctor);
 router.post('/', verifyToken, appointmentController.createAppointments);
 router.put('/', verifyToken, verifyAppointmentChanges, appointmentController.updateMyAppointment);
+router.delete('/',verifyToken, appointmentController.deleteMyAppointment);
 
 module.exports = router;

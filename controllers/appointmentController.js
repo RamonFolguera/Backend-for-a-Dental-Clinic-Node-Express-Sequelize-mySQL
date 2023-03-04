@@ -180,4 +180,33 @@ appointmentController.updateMyAppointment = async (req, res) => {
         })
     }
 }
+
+appointmentController.deleteMyAppointment = async (req, res) => {
+    const appointmentId=req.body.id;
+    const userId=req.userId;
+    const appointment= await Appointment.findByPk(appointmentId);
+    if(appointment){
+        if(appointment.user_id===userId){  // if the appointment is yours
+            appointment.destroy();
+            return res.json(
+                {
+                    success: true,
+                    message: "appointment destroyed",
+                    data: appointment
+                }
+            );
+        }else{
+            return res.status(500).json({
+                success: false,
+                message: "appointment selected not exists (you dont have privileges to do that)"
+            })
+        }
+    }else{
+        return res.status(500).json({
+            success: false,
+            message: "appointment selected not exists"
+        })
+    }
+    
+}
 module.exports = appointmentController;
