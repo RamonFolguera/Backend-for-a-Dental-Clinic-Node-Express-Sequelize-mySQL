@@ -40,40 +40,39 @@ appointmentController.getAppointmentsByuserId = async (req, res) => {
     try {
 
         const getAppointmentsByUserId = await Appointment.findAll(
-            {where:{
+            {
+                where:{
                 user_id : req.userId
-            }},
-            
-            console.log(req.userId),
-            { 
-                include: [
-                    Service,
-                    {
-                    model: User,
-                    
-                        attributes:  {
-                            exclude: ["password", "role_id", "createdAt", "udpatedAt"]
-                    
-                },
             },
+            
+                include: [
+                    {
+                        model: Service,
+                        attributes: {
+                            exclude: ["createdAt", "updatedAt"]
+                        }
+                    },
+                    
+        
                     {
                     model: Doctor,
                         attributes: {
-                            exclude: ["user_id", "createdAt", "udpatedAt"],
+                            exclude: ["collegiate_num", "user_id", "createdAt", "updatedAt"],
                     },
                     include: {
                         model:User,
                         attributes: {
-                            exclude: ["password", "role_id", "createdAt","updatedAt"]
+                            exclude: ["password", "role_id", "createdAt","updatedAt",  "address"]
                         }
                     } 
                 }
             ],
+            //We exclude comments as it is only for doctors 
                     attributes: {
-                        exclude: ["user_id", "doctor_id", "service_id"],
+                        exclude: ["user_id", "doctor_id", "service_id", "comments", "createdAt","updatedAt"],
                 }
-
             }
+            
         )
         console.log(getAppointmentsByUserId);
         return res.json(
