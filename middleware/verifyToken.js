@@ -16,7 +16,7 @@ const verifyToken = (req, res, next) => {
     //al objeto request le digo q usuario eres y q rol eres
     req.userId = decoded.userId;
     req.roleId = decoded.roleId;
-    console.log(decoded);
+    // console.log(decoded);
     
     next()
     }catch(error){
