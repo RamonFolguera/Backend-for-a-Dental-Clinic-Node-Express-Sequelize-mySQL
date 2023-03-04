@@ -14,7 +14,8 @@ const isDoctor = async (req, res, next) => {
     }
 
     if (req.roleId === 3) {
-    next();
+        req.doctorId= doctor.id;
+        next();
     }
 } catch (error) {
         return res.status(500).json({

@@ -2,7 +2,6 @@ const { User } = require("../models");
 
 const userController = {};
 
-
 userController.getAllUsersAsDoctor = async (req, res) => {
     try {
         const users = await User.findAll(
@@ -30,7 +29,6 @@ userController.getAllUsersAsDoctor = async (req, res) => {
         })
     }
 }
-
 
 userController.getMyUser = async(req,res) => {
     try {

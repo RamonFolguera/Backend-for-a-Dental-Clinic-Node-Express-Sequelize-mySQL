@@ -209,4 +209,63 @@ appointmentController.deleteMyAppointment = async (req, res) => {
     }
     
 }
+
+appointmentController.getMyAppointmentsAsDoctor = async (req, res) => {
+    try {
+        const doctorId= req.doctorId;
+        const appointments = await Appointment.findAll(
+            {
+                where: {
+                    doctor_id: doctorId
+                },
+                include: [
+                    {
+                        model: Service,
+                        attributes: {
+                            exclude: ["createdAt", "updatedAt"]
+                        }
+                    },
+                    
+                    {
+                        model: User,
+                        attributes: {
+                            exclude: ["password", "role_id", "createdAt", "updatedAt"]
+                        }
+                    },
+                    {
+                    model: Doctor,
+                        attributes: {
+                            exclude: ["collegiate_num", "user_id", "createdAt", "updatedAt"],
+                    },
+                    include: {
+                        model:User,
+                        attributes: {
+                            exclude: ["password", "role_id", "createdAt","updatedAt",  "address"]
+                        }
+                    } 
+                }
+            ],
+            //We exclude comments as it is only for doctors 
+                    attributes: {
+                        exclude: ["user_id", "doctor_id", "service_id", "comments", "createdAt","updatedAt"],
+                }
+            }
+            
+        )
+
+        return res.json(
+            {
+            success: true,
+            message: "My appointments as Doctor sucessfully retieved",
+            data: appointments
+            });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Somenthing went wrong trying to get all appointments as user doctor",
+            error: error.message
+        })
+    }
+}
 module.exports = appointmentController;
