@@ -75,4 +75,30 @@ userController.updateMyUser = async(req,res) => {
         );
     }
 }
+
+userController.getAllUsersAsAdmin = async (req, res) => {
+    try {
+        const users = await User.findAll(
+            {     
+            attributes: {
+                exclude: ["password"],
+        }
+    }
+        );
+        return res.json(
+            {
+            success: true,
+            message: "All Registered Users succesfully retrieved as user admin",
+            data: users
+            });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Somenthing went wrong trying to get all registered users as user admin",
+            error: error.message
+        })
+    }
+}
+
 module.exports = userController;

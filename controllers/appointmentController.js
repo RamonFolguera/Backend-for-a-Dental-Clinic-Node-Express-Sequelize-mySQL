@@ -149,6 +149,54 @@ appointmentController.getAllAppointmentsAsDoctor = async (req, res) => {
     }
 }
 
+appointmentController.getAllAppointmentsAsAdmin = async (req, res) => {
+    try {
+
+        const getAllAppointmentsAsAdmin = await Appointment.findAll(
+
+            {
+                include: [
+                    {
+                        model: Service
+                    },
+                    {
+                        model: User,
+                        attributes: {
+                            exclude: ["password"]
+                        }
+                    },
+                    {
+                    model: Doctor,
+                        
+                    include: {
+                        model:User,
+                        attributes: {
+                            exclude: ["password"]
+                        }
+                    } 
+                }
+            ],
+                    
+            }
+            
+        )
+
+        return res.json(
+            {
+            success: true,
+            message: "All Appointments succesfully retrieved as user admin",
+            data: getAllAppointmentsAsAdmin
+            });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Somenthing went wrong trying to get all appointments as user admin",
+            error: error.message
+        })
+    }
+}
+
 appointmentController.updateMyAppointment = async (req, res) => {
     
     try {
