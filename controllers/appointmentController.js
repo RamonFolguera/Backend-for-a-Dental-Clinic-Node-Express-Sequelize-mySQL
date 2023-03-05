@@ -182,6 +182,7 @@ appointmentController.updateMyAppointment = async (req, res) => {
 }
 
 appointmentController.deleteMyAppointment = async (req, res) => {
+    try {
     const appointmentId=req.body.id;
     const userId=req.userId;
     const appointment= await Appointment.findByPk(appointmentId);
@@ -191,20 +192,23 @@ appointmentController.deleteMyAppointment = async (req, res) => {
             return res.json(
                 {
                     success: true,
-                    message: "appointment destroyed",
+                    message: "Appointment succesfully deleted",
                     data: appointment
                 }
             );
         }else{
             return res.status(500).json({
                 success: false,
-                message: "appointment selected not exists (you dont have privileges to do that)"
+                message: "Appointment selected doesn't exist or you don't have privileges to do that.",
+                error: error.message
             })
         }
-    }else{
+    }
+    }catch(error){
         return res.status(500).json({
             success: false,
-            message: "appointment selected not exists"
+            message: "Something went wrong trying to delete your appointment",
+            error: error.message
         })
     }
     
@@ -327,8 +331,6 @@ appointmentController.getMyPendingAppointmentsAsDoctor = async (req, res) => {
     }
 
 }
-
-
 
 appointmentController.verify = async (req, res) => {
     
