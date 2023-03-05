@@ -36,7 +36,7 @@ userController.getMyUser = async(req,res) => {
         return res.json(
             {
                 success: true,
-                message: "user retrieved",
+                message: "User succesfully retrieved",
                 data: user
             }
         )
@@ -44,7 +44,7 @@ userController.getMyUser = async(req,res) => {
         return res.status(500).json(
             {
                 success: false,
-                message: "something went wrong",
+                message: "Something went wrong",
                 error: error.message
             }
         );
@@ -61,7 +61,7 @@ userController.updateMyUser = async(req,res) => {
         return res.json(
             {
                 success: true,
-                message: "user updated",
+                message: "User succesfully updated",
                 data: user
             }
         );
@@ -69,7 +69,7 @@ userController.updateMyUser = async(req,res) => {
         return res.status(500).json(
             {
                 success: false,
-                message: "something went wrong",
+                message: "Something went wrong",
                 error: error.message
             }
         );

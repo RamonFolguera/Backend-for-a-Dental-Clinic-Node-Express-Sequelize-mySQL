@@ -5,7 +5,6 @@
   <ol>
     <li><a href="#objetivo">Objetivo</a></li>
     <li><a href="#sobre-el-proyecto">Sobre el proyecto</a></li>
-    <li><a href="#deploy-🚀">Deploy</a></li>
     <li><a href="#stack">Stack</a></li>
     <li><a href="#diagrama-bd">Diagrama</a></li>
     <li><a href="#instalación-en-local">Instalación</a></li>
@@ -16,7 +15,6 @@
     <li><a href="#licencia">Licencia</a></li>
     <li><a href="#webgrafia">Webgrafia</a></li>
     <li><a href="#desarrollo">Desarrollo</a></li>
-    <li><a href="#agradecimientos">Agradecimientos</a></li>
     <li><a href="#contacto">Contacto</a></li>
   </ol>
 </details>
@@ -26,20 +24,12 @@ Este proyecto requería una API funcional conectada a una base de datos con al m
 
 ## Sobre el proyecto
 Para este proyecto en el bootcamp de GeeksHubs se nos entrega el siguiente enunciado:
-"Desde el departamento de producto nos piden crear el backend
-correspondiente al sistema de gestión de citas para una Clínica Dental.
+"Desde el departamento de producto nos piden crear el backend correspondiente al sistema de gestión de citas para una Clínica Dental.
 
-Para ello el cliente deberá ser capaz de registrarse en la aplicación, hacer login y acceder a su área de cliente. En su área de cliente deberá poder ver una lista de las citas que
-tiene a futuro, crear citas, modificarlas y anularlas.
-También existirá una zona de usuario con sus datos personales, que solo podrá
-ver él mismo.
-Además, los dentistas deberán poder registrarse como profesionales, hacer
+Para ello el cliente deberá ser capaz de registrarse en la aplicación, hacer login y acceder a su área de cliente. En su área de cliente deberá poder ver una lista de las citas que tiene a futuro, crear citas, modificarlas y anularlas. También existirá una zona de usuario con sus datos personales, que solo podrá ver él mismo. Además, los dentistas deberán poder registrarse como profesionales, hacer
 login y ver todas las citas y clientes registrados." 
 
-## Deploy 🚀
-<div align="center">
-    <a href="https://www.google.com"><strong>Url a producción </strong></a>🚀🚀🚀
-</div>
+Se valorará la ejecución técnica, así como el trabajo en equipo. Siendo un equipo de dos miembros ha sido importante la comunicación, el apoyo mutuo, la toma de decisiones consensuadas y por supuesto, el manejo de Git y el repositorio de Github: creación de ramas de trabajo, resolución de conflictos, trabajo individual en local ... 
 
 ## Stack
 Tecnologías utilizadas:
@@ -90,12 +80,80 @@ Tecnologías utilizadas:
 6. ``` $ npm run dev ``` 
 7. ...
 
+## Workflow
+<details>
+<summary>Workflow</summary>
+
+1. Crear package.json con npm init -y.
+2. Crear archivo index.js en la ruta principal. Crear .env y .env.example. Crear .gitignore con /node_modules y .env dentro. Ejecutar comando git init. 
+3. Instalar express, nodemon, sequelize, sequelize-cli, mysql2, dotenv, jsonwebtoken y bcrypt. 
+4. Sequelize init. Ejecutar sequelize.
+5. Crear script "dev": "nodemon index.js", para mantener el servidor ejecutándose.
+6. ``` $ npm run dev ``` comando para ejecutar el servidor. ctrl + c para pararlo.
+7. Required express en index.js, y la variable instance app. También asignar PORT a nuestro servidor y usar un método listen para ejecutarlo:
+```
+const express = require('express');
+const app = express();
+const PORT = 3000;
+app.listen(PORT, () => console.log("Server running on port: " + PORT));
+```
+8. Crear models Role, Doctor, User, Service and Appointment en ese orden:
+```
+npx sequelize-cli model:generate --name Users --attributes name:string,...
+``` 
+9. Añadir las foreign keys de services, doctors y users en appointments migration js file con sus respectivas relaciones. Hacer lo mismo con las que correspondan en todos los modelos.
+```
+references: {
+          model: "Services",
+          key:"id"
+        }
+```
+10. Crear carpetas controllers y view.
+En carpeta view crear las Routes.
+
+11. Crear router.js en la ruta principal:
+```
+const router = require('express').Router();
+module.exports = router;
+```
+12. Route.js conectado al index principal: 
+```
+const router = require('./router'); 
+app.use(router);
+```
+13. Refactorizar a route:
+```
+const router = require('express').Router();
+
+router.use('/services', servicesRouter);
+router.use('/users', usersRouter)
+
+module.exports = router;
+```
+14. Refactorizar controllers:
+```
+const serviceController = {};
+
+serviceController.getServices = (req, res) => {return res.send('Get Services')}
+serviceController.createServices = (req, res) => {return res.send('Create Services')}
+
+module.exports = serviceController;
+```
+15. Crear seeders para Role, User, Doctor, Service, Appointment y  commit a la database
+```
+npx sequelize-cli seed:generate --name demo-user
+npx sequelize-cli db:seed:all
+```
+16. Crear middlewares para controlar el nivel de acceso a la información o a las funcionalidades de la base de datos según roles.
+16. Crear endpoints, los cuales describimos a continuación:
+</details>
+
 ## Endpoints
 <details>
 <summary>Endpoints</summary>
 
 - AUTH
-    - USERS REGISTER
+    - REGISTRO DE USUARIOS
 
             POST http://localhost:3000/auth/register/
         body:
@@ -112,7 +170,7 @@ Tecnologías utilizadas:
           }
         ```
 
-    - USERS LOGIN
+    - LOGIN DE USUARIOS
 
             POST http://localhost:3000/auth/login/  
         body:
@@ -122,40 +180,23 @@ Tecnologías utilizadas:
                 "password": "mipassword123"
             }
         ```
+- USER
     - PERFIL DE USUARIO 
 
-            GET http://localhost:3000/api/rutina
+        Copia el TOKEN generado por el AUTH del LOGIN:
+
+
+        ```
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImVtYWlsIjoiYW1wYXJvQGFtcGFyby5jb20iLCJyb2xlSWQiOjMsImlhdCI6MTY3ODAwNzMzNSwiZXhwIjoxNjc4MDE0NTM1fQ.4K6BNC2bhhrW_vyCQh7hiWI2-i-c4C-KOOgo0nHeQOg"
+        ```
+
+        En AUTHORIZATION. Type BEARER TOKEN. Pega el TOKEN generado.
+
+            GET http://localhost:3000/users/me
+
+        
 
     - MODIFICACIÓN DE DATOS DE PERFIL
-    - CREACIÓN DE CITAS
-
-            POST http://localhost:3000/appointments/
-        body:
-        ``` js
-            {
-                "date": "2023-03-01 00:00:00",
-                "service_id": 1,
-                "doctor_id":1
-            }
-        ```
-
-    - MODIFICACIÓN DE CITAS 
-
-    - ANULACIÓN DE CITAS 
-
-    - VER TODAS LAS CITAS QUE TENGO COMO CLIENTE (SOLO LAS PROPIAS) 
-
-    - VER TODAS LAS CITAS EXISTENTES (COMO DENTISTA) 
-
-        LOGIN con USER con role de DOCTOR:
-
-        body:
-        ``` js
-            {
-              "email":"amparo@amparo.com",
-              "password": "456789"
-            }
-        ```
 
         Copia el TOKEN generado por el AUTH del LOGIN:
 
@@ -163,20 +204,19 @@ Tecnologías utilizadas:
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImVtYWlsIjoiYW1wYXJvQGFtcGFyby5jb20iLCJyb2xlSWQiOjMsImlhdCI6MTY3ODAwNzMzNSwiZXhwIjoxNjc4MDE0NTM1fQ.4K6BNC2bhhrW_vyCQh7hiWI2-i-c4C-KOOgo0nHeQOg"
         ```
 
-        GET  http://localhost:3000/appointments/doctor
-
         En AUTHORIZATION. Type BEARER TOKEN. Pega el TOKEN generado.
 
+            PUT http://localhost:3000/users/me
+        body:
         ``` js
-           {
-                "success": true,
-                "message": "All Appointments succesfully retrieved as user doctor",
-                "data": [
-                    {
-                      ... 
-                    },
-                ]
-           }
+            {
+                "attribute":"name",
+                "value":"Rodrigo",
+                "changes":{
+                    "name": "Francisco",
+                    "first_surname": "Martínez"
+                    }
+            }
         ```
 
     - VER TODAS LOS CLIENTES REGISTRADOS (COMO DENTISTA)
@@ -197,112 +237,180 @@ Tecnologías utilizadas:
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImVtYWlsIjoiYW1wYXJvQGFtcGFyby5jb20iLCJyb2xlSWQiOjMsImlhdCI6MTY3ODAwNzMzNSwiZXhwIjoxNjc4MDE0NTM1fQ.4K6BNC2bhhrW_vyCQh7hiWI2-i-c4C-KOOgo0nHeQOg"
         ```
 
+        En AUTHORIZATION. Type BEARER TOKEN. Pega el TOKEN generado.
+
         GET  http://localhost:3000/users
+- APPOINTMENT
+    - CREACIÓN DE CITAS
+
+            POST http://localhost:3000/appointments/
+        body:
+        ``` js
+            {
+                "date": "2023-03-01 00:00:00",
+                "service_id": 1,
+                "doctor_id":1
+            }
+        ```
+
+        El cliente crea una cita en estado Pendiente de Verificar por el doctor.
+
+    - MODIFICACIÓN DE CITAS
+
+        Copia el TOKEN generado por el AUTH del LOGIN:
+
+        ```
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImVtYWlsIjoiYW1wYXJvQGFtcGFyby5jb20iLCJyb2xlSWQiOjMsImlhdCI6MTY3ODAwNzMzNSwiZXhwIjoxNjc4MDE0NTM1fQ.4K6BNC2bhhrW_vyCQh7hiWI2-i-c4C-KOOgo0nHeQOg"
+        ```
 
         En AUTHORIZATION. Type BEARER TOKEN. Pega el TOKEN generado.
 
+            PUT http://localhost:3000/appointments
+        body:
         ``` js
-           {
-                "success": true,
-                "message": "All Registered Users succesfully retrieved as user doctor",
-                "data": [
-                    {
-                        "id": 2,
-                        "name": "Jose Andrés",
-                        "first_surname": "Oliver",
-                        "second_surname": "Abel",
-                        "phone": "665544332",
-                        "email": "jose@jose.com",
-                        "address": "10 Whiston Road"
-                    },
-                    {
-                        "id": 5,
-                        "name": "Álvaro",
-                        "first_surname": "Bernabé",
-                        "second_surname": "Alonso",
-                        "phone": "656565656",
-                        "email": "alvaro@alvaro.com",
-                        "address": "5 Abbey Road"
-                    }
-                ]
+            {
+                "id":"7",
+                "changes":{
+                    "service_id":2
+                }
             }
         ```
-        - VER UNA CITA EN DETALLE
-        - ELEGIR MÉDICO EN LA CITA
-        - COMO MÉDICO, PODER VER SOLO MIS CITAS
+
+    - ANULACIÓN DE CITAS 
+
+        Copia el TOKEN generado por el AUTH del LOGIN:
+
+        ```
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImVtYWlsIjoiYW1wYXJvQGFtcGFyby5jb20iLCJyb2xlSWQiOjMsImlhdCI6MTY3ODAwNzMzNSwiZXhwIjoxNjc4MDE0NTM1fQ.4K6BNC2bhhrW_vyCQh7hiWI2-i-c4C-KOOgo0nHeQOg"
+        ```
+
+        En AUTHORIZATION. Type BEARER TOKEN. Pega el TOKEN generado.
+
+            DELETE http://localhost:3000/appointments
+        body:
+        ``` js
+            {
+                "id":"7"
+            }
+        ```
+
+    - VER TODAS LAS CITAS QUE TENGO COMO CLIENTE (SOLO LAS PROPIAS) 
+
+        Copia el TOKEN generado por el AUTH del LOGIN:
+
+        ```
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImVtYWlsIjoiYW1wYXJvQGFtcGFyby5jb20iLCJyb2xlSWQiOjMsImlhdCI6MTY3ODAwNzMzNSwiZXhwIjoxNjc4MDE0NTM1fQ.4K6BNC2bhhrW_vyCQh7hiWI2-i-c4C-KOOgo0nHeQOg"
+        ```
+
+        En AUTHORIZATION. Type BEARER TOKEN. Pega el TOKEN generado.
+
+            GET http://localhost:3000/appointments/user
+    
+    - VER TODAS LAS CITAS EXISTENTES (COMO DENTISTA) 
+
+        LOGIN con USER con role de DOCTOR:
+
+        body:
+        ``` js
+            {
+              "email":"amparo@amparo.com",
+              "password": "456789"
+            }
+        ```
+
+        Copia el TOKEN generado por el AUTH del LOGIN:
+
+        ```
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImVtYWlsIjoiYW1wYXJvQGFtcGFyby5jb20iLCJyb2xlSWQiOjMsImlhdCI6MTY3ODAwNzMzNSwiZXhwIjoxNjc4MDE0NTM1fQ.4K6BNC2bhhrW_vyCQh7hiWI2-i-c4C-KOOgo0nHeQOg"
+        ```
+
+        En AUTHORIZATION. Type BEARER TOKEN. Pega el TOKEN generado.
+
+            GET  http://localhost:3000/appointments/doctor
+
+
+    - COMO MÉDICO, PODER VER SOLO MIS CITAS
+
+        LOGIN con USER con role de DOCTOR:
+
+        body:
+        ``` js
+            {
+              "email":"amparo@amparo.com",
+              "password": "456789"
+            }
+        ```
+
+        Copia el TOKEN generado por el AUTH del LOGIN:
+
+        ```
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImVtYWlsIjoiYW1wYXJvQGFtcGFyby5jb20iLCJyb2xlSWQiOjMsImlhdCI6MTY3ODAwNzMzNSwiZXhwIjoxNjc4MDE0NTM1fQ.4K6BNC2bhhrW_vyCQh7hiWI2-i-c4C-KOOgo0nHeQOg"
+        ```
+
+        En AUTHORIZATION. Type BEARER TOKEN. Pega el TOKEN generado.
+
+            GET  http://localhost:3000/appointments/doctor/my
+
+    - CONSULTAR CITAS DE UN DOCTOR SIN VERIFICAR
+
+        LOGIN con USER con role de DOCTOR:
+
+        body:
+        ``` js
+            {
+              "email":"amparo@amparo.com",
+              "password": "456789"
+            }
+        ```
+
+        Copia el TOKEN generado por el AUTH del LOGIN:
+
+        ```
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImVtYWlsIjoiYW1wYXJvQGFtcGFyby5jb20iLCJyb2xlSWQiOjMsImlhdCI6MTY3ODAwNzMzNSwiZXhwIjoxNjc4MDE0NTM1fQ.4K6BNC2bhhrW_vyCQh7hiWI2-i-c4C-KOOgo0nHeQOg"
+        ```
+
+        En AUTHORIZATION. Type BEARER TOKEN. Pega el TOKEN generado.
+
+            GET  http://localhost:3000/appointments/doctor/my-verified
+
+    - VERIFICAR CITA COMO DOCTOR
+
+        LOGIN con USER con role de DOCTOR:
+
+        body:
+        ``` js
+            {
+              "email":"amparo@amparo.com",
+              "password": "456789"
+            }
+        ```
+
+        Copia el TOKEN generado por el AUTH del LOGIN:
+
+        ```
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImVtYWlsIjoiYW1wYXJvQGFtcGFyby5jb20iLCJyb2xlSWQiOjMsImlhdCI6MTY3ODAwNzMzNSwiZXhwIjoxNjc4MDE0NTM1fQ.4K6BNC2bhhrW_vyCQh7hiWI2-i-c4C-KOOgo0nHeQOg"
+        ```
+
+        En AUTHORIZATION. Type BEARER TOKEN. Pega el TOKEN generado.
+
+            PUT  http://localhost:3000/appointments/verify
+
+          body:
+        ``` js
+            {
+              "email":"amparo@amparo.com",
+              "password": "456789"
+            }
+        ```
         
 </details>
 
-## Workflow
-<details>
-<summary>Workflow</summary>
-1. Creation of package.json with npm init -y.
-2. Creation of index.js on the main root. Creation of .gitignore with /node_modules in it. git init.
-3. Installed express, nodemon, sequelize, sequelize-cli, mysql2 
-4. Sequelize init. We start sequelize.
-5. Creation of script "dev": "nodemon index.js", to keep our server running.
-6. ``` $ npm run dev ``` to start the server. ctrl + c to stop it.
-7. Required express in index.js, and instance app variable. Also assign a PORT to our server and use a listen method to start it:
-```
-const express = require('express');
-const app = express();
-const PORT = 3000;
-app.listen(PORT, () => console.log("Server running on port: " + PORT));
-```
-8. Created models Users, Services and Appointments in that order:
-```
-npx sequelize-cli model:generate --name Users --attributes name:string,...
-``` 
-9. Added the foreign keys of services and users in appointments migration js file:
-```
-references: {
-          model: "Services",
-          key:"id"
-        }
-```
-10. Created controllers and view folder.
-In view folder created UsersRouter, servicesRouter
-
-11. Created router.js file in main root:
-```
-const router = require('express').Router();
-module.exports = router;
-```
-12. Route.js Connected to main index 
-```
-const router = require('./router'); 
-app.use(router);
-```
-13. Refactor to route. 
-```
-const router = require('express').Router();
-
-router.use('/services', servicesRouter);
-router.use('/users', usersRouter)
-
-module.exports = router;
-```
-14. Refactor users and services to controllers.
-```
-const serviceController = {};
-
-serviceController.getServices = (req, res) => {return res.send('Get Services')}
-serviceController.createServices = (req, res) => {return res.send('Create Services')}
-
-module.exports = serviceController;
-```
-15. Created seeders for Role, User, Doctor, Service, Appointment and committed to the database
-```
-npx sequelize-cli seed:generate --name demo-user
-npx sequelize-cli db:seed:all
-```
-</details>
-
 ## Futuras funcionalidades
-[ ] 
-[ ] 
-[ ]  
-[ ] ...
+[ ] Añadir un rol SuperAdmin que sea el rol del programador con acceso a todo el sistema menos a los datos privados de los pacientes y doctores.
+[ ] Añadir funcionalidades para crear, modificar y eliminar servicios por los doctores.  
+[ ] Añadir funcionalidades para crear, modificar o eliminar roles por el SuperAdmin
+[ ] Especificar que el rol admin será para administración desde recepción con los privilegios necesarios para llevar a cabo su trabajo, como por ejemplo (añadido en el siguiente punto):
+[ ] Añadir funcionalidad para crear, modificar y eliminar doctores.
 
 ## Contribuciones
 Las sugerencias y aportaciones son siempre bienvenidas.  
@@ -329,10 +437,9 @@ Puedes hacerlo de dos maneras:
 Este proyecto se encuentra bajo licencia de [MIT License](https://github.com/RamonFolguera/rfc-jaoa-geekshubs-fsd-val-project4-05032023/blob/master/LICENSE).
 
 ## Webgrafia:
-Para conseguir mi objetivo he recopilado información de:
-- link a repositorios 
-- link a documentacion de librerias externas
-- ...
+Para conseguir mi objetivo hemos recopilado información de:
+- [Sequelize documentation](https://sequelize.org/docs/v6/)
+
 
 ## Desarrollo:
 

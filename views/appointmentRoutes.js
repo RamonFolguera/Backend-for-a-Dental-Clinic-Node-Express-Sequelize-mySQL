@@ -18,5 +18,4 @@ router.get('/doctor/my-verified', verifyToken, isDoctor, appointmentController.g
 router.put('/verify', verifyToken, isDoctor, appointmentController.verify);
 router.get('/admin', verifyToken, isAdmin, appointmentController.getAllAppointmentsAsAdmin);
 
-
 module.exports = router;

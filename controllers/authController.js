@@ -39,9 +39,6 @@ authController.register = async (req, res) => {
     }
 }
 
-
-
-
 authController.login = async (req, res) => {
     try {
         //recuperamos lo que viene por el body del login
@@ -86,8 +83,5 @@ authController.login = async (req, res) => {
                         })
     }
 }
-
-
-
 
 module.exports = authController;

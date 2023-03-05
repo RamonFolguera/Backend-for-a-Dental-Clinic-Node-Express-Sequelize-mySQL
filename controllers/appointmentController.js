@@ -1,8 +1,6 @@
 const { User, Doctor, Service, Appointment } = require("../models")
 const bcrypt = require('bcrypt');
 
-
-
 const appointmentController = {};
 
 appointmentController.createAppointments = async (req, res) => {
@@ -396,14 +394,14 @@ appointmentController.verify = async (req, res) => {
                 return res.json(
                     {
                         success: true,
-                        message: "appointment verified",
+                        message: "Appointment succesfully verified",
                         data: appointment
                     }
                 );
             }else{
                 return res.status(500).json({
                     success: false,
-                    message: "this appointments is already verified"
+                    message: "This appointments is already verified"
                 })
             }
         }else{
@@ -420,4 +418,5 @@ appointmentController.verify = async (req, res) => {
         })
     }
 }
+
 module.exports = appointmentController;
