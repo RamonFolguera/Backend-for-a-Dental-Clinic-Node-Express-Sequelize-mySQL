@@ -1,7 +1,7 @@
 {
   "name": "clinica_dental",
   "version": "1.0.0",
-  "description": "",
+  "description": "<details>\r   <summary>Contenido 📝</summary>\r   <ol>\r     <li><a href=\"#objetivo\">Objetivo</a></li>\r     <li><a href=\"#sobre-el-proyecto\">Sobre el proyecto</a></li>\r     <li><a href=\"#stack\">Stack</a></li>\r     <li><a href=\"#diagrama-bd\">Diagrama</a></li>\r     <li><a href=\"#instalación-en-local\">Instalación</a></li>\r     <li><a href=\"#work-flow\">Work-flow</a></li>\r     <li><a href=\"#endpoints\">Endpoints</a></li>\r     <li><a href=\"#futuras-funcionalidades\">Futuras funcionalidades</a></li>\r     <li><a href=\"#contribuciones\">Contribuciones</a></li>\r     <li><a href=\"#licencia\">Licencia</a></li>\r     <li><a href=\"#webgrafia\">Webgrafia</a></li>\r     <li><a href=\"#desarrollo\">Desarrollo</a></li>\r     <li><a href=\"#contacto\">Contacto</a></li>\r   </ol>\r </details>",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
@@ -21,5 +21,14 @@
     "nodemon": "2.0.20",
     "sequelize": "6.28.1",
     "sequelize-cli": "6.6.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RamonFolguera/rfc-jaoa-geekshubs-fsd-val-project4-05032023.git"
+  },
+  "bugs": {
+    "url": "https://github.com/RamonFolguera/rfc-jaoa-geekshubs-fsd-val-project4-05032023/issues"
+  },
+  "homepage": "https://github.com/RamonFolguera/rfc-jaoa-geekshubs-fsd-val-project4-05032023#readme"
 }
