@@ -9,6 +9,7 @@
     <li><a href="#stack">Stack</a></li>
     <li><a href="#diagrama-bd">Diagrama</a></li>
     <li><a href="#instalación-en-local">Instalación</a></li>
+    <li><a href="#work-flow">Work-flow</a></li>
     <li><a href="#endpoints">Endpoints</a></li>
     <li><a href="#futuras-funcionalidades">Futuras funcionalidades</a></li>
     <li><a href="#contribuciones">Contribuciones</a></li>
@@ -42,10 +43,9 @@ login y ver todas las citas y clientes registrados."
 
 ## Stack
 Tecnologías utilizadas:
+
 <div align="center">
-<a href="https://www.mongodb.com/">
-    <img src= "https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white"/>
-</a>
+
 <a href="https://www.expressjs.com/">
     <img src= "https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB"/>
 </a>
@@ -54,6 +54,25 @@ Tecnologías utilizadas:
 </a>
 <a href="https://developer.mozilla.org/es/docs/Web/JavaScript">
     <img src= "https://img.shields.io/badge/javascipt-EFD81D?style=for-the-badge&logo=javascript&logoColor=black"/>
+</a>
+<a href="https://www.sequelize.org/">
+    <img src= "https://img.shields.io/badge/sequelize-3C76C3?style=for-the-badge&logo=sequelize&logoColor=white"/>
+</a>
+<a href="https://www.mysql.com/">
+    <img src= "https://img.shields.io/badge/mysql-3E6E93?style=for-the-badge&logo=mysql&logoColor=white"/>
+</a>
+<a href="https://git-scm.com/">
+    <img src= "https://img.shields.io/badge/git-F54D27?style=for-the-badge&logo=git&logoColor=white"/>
+</a>
+<a href=" https://www.postman.com/">
+    <img src= "https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white"/>
+</a>
+<a href=" https://jwt.io/">
+    <img src= "https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens"/>
+</a>
+
+<a href="https://www.docker.com/">
+    <img src= "https://img.shields.io/badge/docker-2496ED?style=for-the-badge&logo=docker&logoColor=white"/>
 </a>
  </div>
 
@@ -214,6 +233,71 @@ Tecnologías utilizadas:
         
 </details>
 
+## Workflow
+<details>
+<summary>Workflow</summary>
+1. Creation of package.json with npm init -y.
+2. Creation of index.js on the main root. Creation of .gitignore with /node_modules in it. git init.
+3. Installed express, nodemon, sequelize, sequelize-cli, mysql2 
+4. Sequelize init. We start sequelize.
+5. Creation of script "dev": "nodemon index.js", to keep our server running.
+6. ``` $ npm run dev ``` to start the server. ctrl + c to stop it.
+7. Required express in index.js, and instance app variable. Also assign a PORT to our server and use a listen method to start it:
+```
+const express = require('express');
+const app = express();
+const PORT = 3000;
+app.listen(PORT, () => console.log("Server running on port: " + PORT));
+```
+8. Created models Users, Services and Appointments in that order:
+```
+npx sequelize-cli model:generate --name Users --attributes name:string,...
+``` 
+9. Added the foreign keys of services and users in appointments migration js file:
+```
+references: {
+          model: "Services",
+          key:"id"
+        }
+```
+10. Created controllers and view folder.
+In view folder created UsersRouter, servicesRouter
+
+11. Created router.js file in main root:
+```
+const router = require('express').Router();
+module.exports = router;
+```
+12. Route.js Connected to main index 
+```
+const router = require('./router'); 
+app.use(router);
+```
+13. Refactor to route. 
+```
+const router = require('express').Router();
+
+router.use('/services', servicesRouter);
+router.use('/users', usersRouter)
+
+module.exports = router;
+```
+14. Refactor users and services to controllers.
+```
+const serviceController = {};
+
+serviceController.getServices = (req, res) => {return res.send('Get Services')}
+serviceController.createServices = (req, res) => {return res.send('Create Services')}
+
+module.exports = serviceController;
+```
+15. Created seeders for Role, User, Doctor, Service, Appointment and committed to the database
+```
+npx sequelize-cli seed:generate --name demo-user
+npx sequelize-cli db:seed:all
+```
+</details>
+
 ## Futuras funcionalidades
 [ ] 
 [ ] 
@@ -283,71 +367,6 @@ Proyecto realizado por:
 
 
 
-#Project 4 - Backend for a dental clinic
-
-Step 1 - Creation of package.json with npm init -y.
-Step 2 - Creation of index.js on the main root. Creation of .gitignore with /node_modules in it. git init.
-Step 3 - Installed express, nodemon, sequelize, sequelize-cli, mysql2
-Step 4 - Sequelize init. We start sequelize.
-Step 5 - Creation of script "dev": "nodemon index.js", to keep our server running.
-Step 6 - npm run dev to start the server. ctrl + c to stop it. 
-
-
-Step 7 -Required express in index.js, and instance app variable. Also assign a PORT to our server and use a listen method to start it:
-
-```
-const express = require('express');
-const app = express();
-const PORT = 3000;
-app.listen(PORT, () => console.log("Server running on port: " + PORT));
-```
-Step 8 - Created models Users, Services and Appointments in that order:
-npx sequelize-cli model:generate --name Users --attributes name:string,...
-Step 9 - Added the foreign keys of services and users in appointments migration js file:
-```
-references: {
-          model: "Services",
-          key:"id"
-        }
-```
-
-Step 10 - Created controllers and view folder.
-In view folder created UsersRouter, servicesRouter
-
-Step 11 - Created router.js file in main root:
-```
-const router = require('express').Router();
-module.exports = router;
-```
-
-Step 12 - Route.js Connected to main index 
-```
-const router = require('./router'); 
-app.use(router);
-```
-
-Step 13 - Refactor to route. 
-```
-const router = require('express').Router();
-
-router.use('/services', servicesRouter);
-router.use('/users', usersRouter)
-
-module.exports = router;
-```
-Step 14 - Refactor users and services to controllers.
-```
-const serviceController = {};
-
-serviceController.getServices = (req, res) => {return res.send('Get Services')}
-serviceController.createServices = (req, res) => {return res.send('Create Services')}
-
-module.exports = serviceController;
-```
-Step 15 - Created seeders for Role, User, Doctor, Service, Appointment and committed to the database
-
-npx sequelize-cli seed:generate --name demo-user
-npx sequelize-cli db:seed:all
 
 
 
