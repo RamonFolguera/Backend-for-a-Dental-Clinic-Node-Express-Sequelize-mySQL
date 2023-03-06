@@ -74,7 +74,11 @@ authController.login = async (req, res) => {
             { expiresIn: '2h' }  //en 2h expire y no valga
         );
 
-        return res.json(token)
+        return res.json({
+            success: true,
+            message: "Login succesful",
+            data: token
+        })
     } catch (error) {
         return res.status(500).json({
                             success: false,
