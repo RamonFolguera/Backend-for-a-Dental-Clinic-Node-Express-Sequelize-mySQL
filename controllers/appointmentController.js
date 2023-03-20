@@ -1,5 +1,6 @@
 const { User, Doctor, Service, Appointment } = require("../models")
 const bcrypt = require('bcrypt');
+const { where } = require("sequelize");
 
 const appointmentController = {};
 
@@ -386,28 +387,26 @@ appointmentController.verify = async (req, res) => {
         const changes = {};
         changes.confirmed=true;
         changes.comments= req.body.comments;
-        const appointment=await Appointment.findByPk(appointmentId);
-        if(appointment.doctor_id===doctorId){   
-            if(appointment.verified===true){
-                appointment.update(changes);
-                appointment.save();
-                return res.json(
-                    {
-                        success: true,
-                        message: "Appointment succesfully verified",
-                        data: appointment
-                    }
-                );
-            }else{
-                return res.status(500).json({
-                    success: false,
-                    message: "This appointments is already verified"
-                })
-            }
+        const appointment=await Appointment.findOne({where:{
+            id:appointmentId,
+            doctor_id: doctorId,
+            confirmed:false
+        }});
+        if(appointment!==null){
+            appointment.update(changes);
+            appointment.save();
+            return res.json(
+                {
+                    success: true,
+                    message: "Appointment succesfully verified",
+                    data: appointment
+                }
+            );
         }else{
             return res.status(500).json({
                 success: false,
-                message: "You are not allowed to change this appointment"
+                message: "Somenthing went wrong with your appointment",
+                error: "Maybe it was validated yet?"
             })
         }
     } catch (error) {
