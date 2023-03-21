@@ -54,13 +54,19 @@ authController.login = async (req, res) => {
             },
         );
         if(!user) {
-            return res.send("The email address or password is incorrect. Please try again.") 
+            return res.status(500).json({
+                success: false,
+                message: "The email address or password is incorrect. Please try again.",
+            }) 
         }
             //compara los passwords encryptado
         const isMatch = bcrypt.compareSync(password, user.password);
 
         if(!isMatch) {
-            return res.send("The email address or password is incorrect. Please try again.") 
+            return res.status(403).json({
+                success: false,
+                message: "The email address or password is incorrect. Please try again.",
+            }) 
         }
         //si no coincide return "is incorrect", si coincide entonces creame el token
         const token = jwt.sign(
@@ -76,7 +82,7 @@ authController.login = async (req, res) => {
 
         return res.json(token)
     } catch (error) {
-        return res.status(500).json({
+        return res.status(403).json({
                             success: false,
                             message: "Somenthing went wrong with Login",
                             error: error.message
