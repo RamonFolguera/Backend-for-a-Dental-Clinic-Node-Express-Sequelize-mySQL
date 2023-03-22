@@ -65,6 +65,7 @@ authController.login = async (req, res) => {
         //si no coincide return "is incorrect", si coincide entonces creame el token
         const token = jwt.sign(
             { //aqui podemos meter lo que queramos
+                name: user.name,
                 userId: user.id,
                 email: user.email,
                 roleId: user.role_id
