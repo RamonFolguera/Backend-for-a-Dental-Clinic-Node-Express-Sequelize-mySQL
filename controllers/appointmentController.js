@@ -197,36 +197,43 @@ appointmentController.getAllAppointmentsAsAdmin = async (req, res) => {
 }
 
 appointmentController.updateMyAppointment = async (req, res) => {
+    console.log("entro")
     
     try {
-        const appointment = req.Appointment;
-        const userId= req.userId;
-        const changes = req.body.changes;
-        changes.confirmed=false;
-        if(appointment.user_id===userId){   // si la cita es tuya podras modificarla
-            appointment.update(changes);
-            appointment.save();
-            return res.json(
-                {
-                    success: true,
-                    message: "appointment updated",
-                    data: appointment
-                }
-            );
-        }else{
-            return res.status(500).json({
-                success: false,
-                message: "You are not allowed to change this appointment"
-            })
-        }
+        const userId = req.userId
+        const appointmentId = req.params.id;
+        const { date } = req.body;
+    console.log(req.userId)
+        const updateAppointment = await Appointment.update(
+            {date: date}, 
+
+            {
+                where: {
+                    id: appointmentId,
+                    user_id : userId,
+                
+                },
+            });
+            
+            
+                
+        console.log(updateAppointment);
+        return res.json(
+            {
+            success: true,
+            message: "Appointment succesfully updated",
+            data: updateAppointment
+            });
+
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Somenthing went wrong with your appointment",
+            message: "Somenthing went wrong trying to update the appointment",
             error: error.message
         })
     }
 }
+
 
 appointmentController.deleteMyAppointment = async (req, res) => {
     try {

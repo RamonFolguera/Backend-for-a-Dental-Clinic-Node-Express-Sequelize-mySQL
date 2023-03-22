@@ -7,7 +7,6 @@ const appointmentRoutes = require ('./views/appointmentRoutes');
 const roleRoutes = require ('./views/roleRoutes');
 const doctorRoutes = require ('./views/doctorRoutes');
 const authRoutes = require ('./views/authRoutes');
-const verifyToken = require('./middleware/verifyToken')
 
 
 router.use('/services', serviceRoutes);
