@@ -9,7 +9,7 @@ const router = require('express').Router();
 router.get('/user', verifyToken, appointmentController.getAppointmentsByuserId);
 router.get('/doctor', verifyToken, isDoctor, appointmentController.getAllAppointmentsAsDoctor);
 router.post('/', verifyToken, appointmentController.createAppointments);
-// router.put('/:id', verifyToken, appointmentController.updateMyAppointment);
+router.put('/:id', verifyToken, appointmentController.updateMyAppointment);
 router.delete('/',verifyToken, appointmentController.deleteMyAppointment);
 
 //extras

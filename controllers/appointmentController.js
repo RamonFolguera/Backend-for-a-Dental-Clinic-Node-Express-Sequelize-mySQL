@@ -1,6 +1,6 @@
 const { User, Doctor, Service, Appointment } = require("../models")
 const bcrypt = require('bcrypt');
-const { where } = require("sequelize");
+
 
 const appointmentController = {};
 
@@ -203,7 +203,7 @@ appointmentController.updateMyAppointment = async (req, res) => {
         const userId = req.userId
         const appointmentId = req.params.id;
         const { date } = req.body;
-    console.log(req.userId)
+        console.log(req.userId)
         const updateAppointment = await Appointment.update(
             {date: date}, 
 
@@ -211,12 +211,9 @@ appointmentController.updateMyAppointment = async (req, res) => {
                 where: {
                     id: appointmentId,
                     user_id : userId,
-                
                 },
             });
             
-            
-                
         console.log(updateAppointment);
         return res.json(
             {
