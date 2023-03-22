@@ -1,5 +1,6 @@
-const config = require('../config/config.json');
+// const config = require('../config/config.json');  comentamos o cambiamos a config.js
 const {Sequelize, DataTypes} = require('sequelize');
+require('dotenv').config();  //comentamos el config js.. y traemos el dotenv
 
 const sequelize = new Sequelize(
     process.env.MYSQL_DATABASE || config.development.database, 
