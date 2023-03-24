@@ -197,7 +197,7 @@ appointmentController.getAllAppointmentsAsAdmin = async (req, res) => {
 }
 
 appointmentController.updateMyAppointment = async (req, res) => {
-    console.log("entro")
+    
     
     try {
         const userId = req.userId

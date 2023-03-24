@@ -53,26 +53,43 @@ userController.getMyUser = async(req,res) => {
 
 userController.updateMyUser = async(req,res) => {
     try {
-        const user = req.User;
-        const changes= req.body.changes;
+        const userId = req.userId
+        const {name, first_surname, second_surname, phone, address, email, password} = req.body;
+        const encryptedPassword = bcrypt.hashSync(password, 10);
+        const updateUser = await Appointment.update(
+            {
+                name: name,
+                first_surname:first_surname,
+                second_surname:second_surname,
+                phone: phone,
+                address:address,
+                email: email,
+                password: encryptedPassword,
+            }, 
+
+            {
+                where: {
+                    user_id : userId,
+                },
+            });
         
-        user.update(changes);
-        user.save();
+            if (!updateUser) {
+                return res.send('User profile not updated')
+            }
+
         return res.json(
             {
-                success: true,
-                message: "User succesfully updated",
-                data: user
-            }
-        );
+            success: true,
+            message: "User profile succesfully updated",
+            data: updateUser
+            });
+
     } catch (error) {
-        return res.status(500).json(
-            {
-                success: false,
-                message: "Something went wrong",
-                error: error.message
-            }
-        );
+        return res.status(500).json({
+            success: false,
+            message: "Somenthing went wrong trying to update your profile",
+            error: error.message
+        })
     }
 }
 
