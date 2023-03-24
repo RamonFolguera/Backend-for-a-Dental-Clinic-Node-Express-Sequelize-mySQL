@@ -10,7 +10,7 @@ router.get('/user', verifyToken, appointmentController.getAppointmentsByuserId);
 router.get('/doctor', verifyToken, isDoctor, appointmentController.getAllAppointmentsAsDoctor);
 router.post('/', verifyToken, appointmentController.createAppointments);
 router.put('/:id', verifyToken, appointmentController.updateMyAppointment);
-router.delete('/',verifyToken, appointmentController.deleteMyAppointment);
+router.delete('/:id',verifyToken, appointmentController.deleteMyAppointment);
 
 //extras
 router.get('/doctor/my', verifyToken,isDoctor, appointmentController.getMyAppointmentsAsDoctor);

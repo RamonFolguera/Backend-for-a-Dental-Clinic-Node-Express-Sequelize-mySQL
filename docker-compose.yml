@@ -1,0 +1,21 @@
+version: "3.6"
+services:
+  # adminer:
+  #   image: adminer
+  #   # restart: always
+  #   ports:
+  #     - 8080:8080
+  app:
+    build:
+      context: .
+    ports:
+      - 4000:4000
+    volumes: 
+      - ./:/usr/src/app
+      - /app/node_modules/bcrypt/
+      - /dev/null/:/api/node_modules/bcrypt/
+      - /usr/src/app/node_modules/
+
+
+# volumes:
+#   node_modules:
