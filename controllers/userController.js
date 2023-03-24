@@ -71,7 +71,7 @@ userController.updateMyUser = async(req,res) => {
 
             {
                 where: {
-                    user_id : userId,
+                    id : userId,
                 },
             });
         
