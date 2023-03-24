@@ -58,7 +58,7 @@ userController.updateMyUser = async(req,res) => {
         const userId = req.userId
         const {name, first_surname, second_surname, phone, address, email, password} = req.body;
         const encryptedPassword = bcrypt.hashSync(password, 10);
-        const updateUser = await Appointment.update(
+        const updateUser = await User.update(
             {
                 name: name,
                 first_surname:first_surname,
